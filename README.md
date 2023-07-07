@@ -1,24 +1,24 @@
-# Google Spreadsheets Python API v4
+# Python Google API
 
-![latest workflow](https://github.com/burnash/gspread/actions/workflows/main.yaml/badge.svg?branch=master)
+![latest workflow](https://github.com/philion/pygapi/actions/workflows/main.yaml/badge.svg?branch=master)
 [![GitHub version](https://badge.fury.io/gh/burnash%2Fgspread.svg)](https://badge.fury.io/gh/burnash%2Fgspread)
 ![PyPi]( https://badge.fury.io/py/gspread.svg)
 ![downloads](https://img.shields.io/pypi/dm/gspread.svg)
 ![doc](https://readthedocs.org/projects/gspread/badge/?version=latest)
 
-Simple interface for working with Google Sheets.
+Simple interface for working with Google Drive, Docs and Sheets.
 
 Features:
 
-- Open a spreadsheet by **title**, **key** or **URL**.
-- Read, write, and format cell ranges.
+- Open a resource by **title**, **key** or **URL**.
+- Read, write, and format documents and spreadsheets.
 - Sharing and access control.
 - Batching updates.
 
 ## Installation
 
 ```sh
-pip install gspread
+pip install pygapi
 ```
 
 Requirements: Python 3.6+.
