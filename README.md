@@ -11,9 +11,17 @@ Simple interface for working with Google Drive, Docs and Sheets.
 Features:
 
 - Open a resource by **title**, **key** or **URL**.
-- Read, write, and format documents and spreadsheets.
-- Sharing and access control.
-- Batching updates.
+- Read and write any docs under Google Drive.
+- API to use Google Drive as a consistent data store.
+
+## TODO
+1. Add api methods for the known needs of SCN. (list dir, get file contents)
+2. Add tests that cover the new use cases
+3. Release v0.1 to PyPI
+4. refactor taskbot to use pygapi
+5. research autocomplete command in discord.
+6. add new site commands to taskbot
+
 
 ## Installation
 
