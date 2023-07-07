@@ -7,16 +7,16 @@ Custom Authentication
 Google Colaboratory
 ~~~~~~~~~~~~~~~~~~~
 
-If you familiar with the Jupyter Notebook, `Google Colaboratory <https://colab.research.google.com/>`_ is probably the easiest way to get started using gspread::
+If you familiar with the Jupyter Notebook, `Google Colaboratory <https://colab.research.google.com/>`_ is probably the easiest way to get started using pygapi::
 
     from google.colab import auth
     auth.authenticate_user()
 
-    import gspread
+    import pygapi
     from google.auth import default
     creds, _ = default()
 
-    gc = gspread.authorize(creds)
+    gc = pygapi.authorize(creds)
 
 See the full example in the `External data: Local Files, Drive, Sheets, and Cloud Storage <https://colab.research.google.com/notebooks/io.ipynb#scrollTo=sOm9PFrT8mGG>`_ notebook.
 
@@ -27,7 +27,7 @@ Using Authlib
 Using ``Authlib`` instead of ``google-auth``. Similar to `google.auth.transport.requests.AuthorizedSession <https://google-auth.readthedocs.io/en/latest/reference/google.auth.transport.requests.html#google.auth.transport.requests.AuthorizedSession>`_ Authlib's ``AssertionSession`` can automatically refresh tokens.::
 
     import json
-    from gspread import Client
+    from pygapi import Client
     from authlib.integrations.requests_client import AssertionSession
 
     def create_assertion_session(conf_file, scopes, subject=None):

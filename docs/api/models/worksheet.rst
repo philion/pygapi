@@ -4,11 +4,11 @@ Worksheet
 ValueRange
 ----------
 
-.. autoclass:: gspread.worksheet.ValueRange
+.. autoclass:: pygapi.worksheet.ValueRange
    :members:
 
 Worksheet
 ---------
 
-.. autoclass:: gspread.worksheet.Worksheet
+.. autoclass:: pygapi.worksheet.Worksheet
    :members:

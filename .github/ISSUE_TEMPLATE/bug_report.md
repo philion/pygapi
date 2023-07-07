@@ -8,8 +8,8 @@ assignees: ''
 ---
 
 **Important**: Please do not post usage questions here. 
-To get a quick response, please ask a question on Stack Overflow using `gspread` tag.
-See existing questions: https://stackoverflow.com/questions/tagged/gspread
+To get a quick response, please ask a question on Stack Overflow using `pygapi` tag.
+See existing questions: https://stackoverflow.com/questions/tagged/pygapi
 
 ---
 
@@ -34,7 +34,7 @@ If applicable, add screenshots to help explain your problem.
 **Environment info:**
 - Operating System [e.g. Linux, Windows, macOS]:
 - Python version
-- gspread version
+- pygapi version
 
 **Stack trace or other output that would be helpful**
 

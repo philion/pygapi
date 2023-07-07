@@ -1,5 +1,5 @@
 Auth
 ====
 
-.. automodule:: gspread.auth
+.. automodule:: pygapi.auth
    :members:

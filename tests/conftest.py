@@ -7,8 +7,8 @@ import vcr
 from google.oauth2.credentials import Credentials as UserCredentials
 from google.oauth2.service_account import Credentials as ServiceAccountCredentials
 
-import gspread
-from gspread.client import BackoffClient
+import pygapi
+from pygapi.client import BackoffClient
 
 CREDS_FILENAME = os.getenv("GS_CREDS_FILENAME")
 RECORD_MODE = os.getenv("GS_RECORD_MODE", "none")
@@ -66,7 +66,7 @@ class DummyCredentials(UserCredentials):
     pass
 
 
-class GspreadTest(unittest.TestCase):
+class pygapiTest(unittest.TestCase):
     @classmethod
     def get_temporary_spreadsheet_title(cls, suffix=""):
         return "Test {} {}".format(cls.__name__, suffix)
@@ -87,7 +87,7 @@ def client():
         auth_credentials = DummyCredentials(DUMMY_ACCESS_TOKEN)
 
     gc = BackoffClient(auth_credentials)
-    if not isinstance(gc, gspread.client.Client) is True:
+    if not isinstance(gc, pygapi.client.Client) is True:
         raise AssertionError
 
     return gc

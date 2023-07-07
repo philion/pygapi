@@ -29,7 +29,7 @@ jobs:
     - name: Create release
       uses: ncipollo/release-action@v1
       with:
-        artifacts: dist/gspread-*
+        artifacts: dist/pygapi-*
         token: ${{ secrets.GH_TOKEN }}
         generateReleaseNotes: True
         artifactErrorsFailBuild: True

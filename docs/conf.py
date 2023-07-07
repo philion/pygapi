@@ -1,5 +1,5 @@
 #
-# gspread documentation build configuration file, created by
+# pygapi documentation build configuration file, created by
 # sphinx-quickstart on Thu Dec 15 14:44:32 2011.
 #
 # This file is execfile()d with the current directory set to its containing dir.
@@ -19,7 +19,7 @@ from datetime import date
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 sys.path.insert(0, os.path.abspath(".."))
 
-from gspread import __version__  # noqa: E402
+from pygapi import __version__  # noqa: E402
 
 # -- General configuration -----------------------------------------------------
 
@@ -51,8 +51,8 @@ source_suffix = ".rst"
 master_doc = "index"
 
 # General information about the project.
-project = "gspread"
-copyright = "%s, Anton Burnashev" % date.today().year
+project = "pygapi"
+copyright = "%s, Anton philionev" % date.today().year
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -175,7 +175,7 @@ html_theme = "sphinx_rtd_theme"
 # html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = "gspreaddoc"
+htmlhelp_basename = "pygapidoc"
 
 
 # -- Options for LaTeX output --------------------------------------------------
@@ -192,7 +192,7 @@ latex_elements = {
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-    ("index", "gspread.tex", "gspread Documentation", "Anton Burnashev", "manual"),
+    ("index", "pygapi.tex", "pygapi Documentation", "Anton philionev", "manual"),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -220,7 +220,7 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [("index", "gspread", "gspread Documentation", ["Anton Burnashev"], 1)]
+man_pages = [("index", "pygapi", "pygapi Documentation", ["Anton philionev"], 1)]
 
 # If true, show URL addresses after external links.
 # man_show_urls = False
@@ -234,10 +234,10 @@ man_pages = [("index", "gspread", "gspread Documentation", ["Anton Burnashev"], 
 texinfo_documents = [
     (
         "index",
-        "gspread",
-        "gspread Documentation",
-        "Anton Burnashev",
-        "gspread",
+        "pygapi",
+        "pygapi Documentation",
+        "Anton philionev",
+        "pygapi",
         "Google Spreadsheets Python API.",
         "Miscellaneous",
     ),
@@ -256,10 +256,10 @@ texinfo_documents = [
 # -- Options for Epub output ---------------------------------------------------
 
 # Bibliographic Dublin Core info.
-epub_title = "gspread"
-epub_author = "Anton Burnashev"
-epub_publisher = "Anton Burnashev"
-epub_copyright = "%s, Anton Burnashev" % date.today().year
+epub_title = "pygapi"
+epub_author = "Anton philionev"
+epub_publisher = "Anton philionev"
+epub_copyright = "%s, Anton philionev" % date.today().year
 
 # The language of the text. It defaults to the language option
 # or en if the language is not set.

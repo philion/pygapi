@@ -59,17 +59,17 @@ You will automatically download a JSON file with credentials. It may look like t
 
 Remember the path to the downloaded credentials file. Also, in the next step you'll need the value of *client_email* from this file.
 
-6. Very important! Go to your spreadsheet and share it with a *client_email* from the step above. Just like you do with any other Google account. If you don't do this, you'll get a ``gspread.exceptions.SpreadsheetNotFound`` exception when trying to access this spreadsheet from your application or a script.
+6. Very important! Go to your spreadsheet and share it with a *client_email* from the step above. Just like you do with any other Google account. If you don't do this, you'll get a ``pygapi.exceptions.SpreadsheetNotFound`` exception when trying to access this spreadsheet from your application or a script.
 
-7. Move the downloaded file to ``~/.config/gspread/service_account.json``. Windows users should put this file to ``%APPDATA%\gspread\service_account.json``.
+7. Move the downloaded file to ``~/.config/pygapi/service_account.json``. Windows users should put this file to ``%APPDATA%\pygapi\service_account.json``.
 
 8. Create a new Python file with this code:
 
 ::
 
-    import gspread
+    import pygapi
 
-    gc = gspread.service_account()
+    gc = pygapi.service_account()
 
     sh = gc.open("Example spreadsheet")
 
@@ -78,15 +78,15 @@ Remember the path to the downloaded credentials file. Also, in the next step you
 Ta-da!
 
 .. NOTE::
-    If you want to store the credentials file somewhere else, specify the path to `service_account.json` in :meth:`~gspread.service_account`:
+    If you want to store the credentials file somewhere else, specify the path to `service_account.json` in :meth:`~pygapi.service_account`:
     ::
 
-        gc = gspread.service_account(filename='path/to/the/downloaded/file.json')
+        gc = pygapi.service_account(filename='path/to/the/downloaded/file.json')
 
     Make sure you store the credentials file in a safe place.
 
-For the curious, under the hood :meth:`~gspread.service_account` loads your credentials and authorizes gspread. Similarly to the code
-that has been used for authentication prior to the gspread version 3.6:
+For the curious, under the hood :meth:`~pygapi.service_account` loads your credentials and authorizes pygapi. Similarly to the code
+that has been used for authentication prior to the pygapi version 3.6:
 
 ::
 
@@ -102,13 +102,13 @@ that has been used for authentication prior to the gspread version 3.6:
         scopes=scopes
     )
 
-    gc = gspread.authorize(credentials)
+    gc = pygapi.authorize(credentials)
 
 There is also the option to pass credentials as a dictionary:
 
 ::
 
-    import gspread
+    import pygapi
     
     credentials = {
         "type": "service_account",
@@ -120,14 +120,14 @@ There is also the option to pass credentials as a dictionary:
         ...
     }
 
-    gc = gspread.service_account_from_dict(credentials)
+    gc = pygapi.service_account_from_dict(credentials)
 
     sh = gc.open("Example spreadsheet")
 
     print(sh.sheet1.get('A1'))
 
 .. NOTE::
-   Older versions of gspread have used `oauth2client <https://github.com/google/oauth2client>`_. Google has
+   Older versions of pygapi have used `oauth2client <https://github.com/google/oauth2client>`_. Google has
    `deprecated <https://google-auth.readthedocs.io/en/latest/oauth2client-deprecation.html>`_
    it in favor of `google-auth`. If you're still using `oauth2client` credentials, the library will convert
    these to `google-auth` for you, but you can change your code to use the new credentials to make sure nothing
@@ -152,28 +152,28 @@ This is the case where your application or a script is accessing spreadsheets on
 #. Click "+ Create credentials" at the top, then select "OAuth client ID".
 #. Select "Desktop app", name the credentials and click "Create". Click "Ok" in the "OAuth client created" popup.
 #. Download the credentials by clicking the Download JSON button in "OAuth 2.0 Client IDs" section.
-#. Move the downloaded file to ``~/.config/gspread/credentials.json``. Windows users should put this file to ``%APPDATA%\gspread\credentials.json``.
+#. Move the downloaded file to ``~/.config/pygapi/credentials.json``. Windows users should put this file to ``%APPDATA%\pygapi\credentials.json``.
 
 Create a new Python file with this code:
 
 ::
 
-    import gspread
+    import pygapi
 
-    gc = gspread.oauth()
+    gc = pygapi.oauth()
 
     sh = gc.open("Example spreadsheet")
 
     print(sh.sheet1.get('A1'))
 
-When you run this code, it launches a browser asking you for authentication. Follow the instruction on the web page. Once finished, gspread stores authorized credentials in the config directory next to `credentials.json`.
+When you run this code, it launches a browser asking you for authentication. Follow the instruction on the web page. Once finished, pygapi stores authorized credentials in the config directory next to `credentials.json`.
 You only need to do authorization in the browser once, following runs will reuse stored credentials.
 
 .. NOTE::
-    If you want to store the credentials file somewhere else, specify the path to `credentials.json` and `authorized_user.json` in :meth:`~gspread.oauth`:
+    If you want to store the credentials file somewhere else, specify the path to `credentials.json` and `authorized_user.json` in :meth:`~pygapi.oauth`:
     ::
 
-        gc = gspread.oauth(
+        gc = pygapi.oauth(
             credentials_filename='path/to/the/credentials.json',
             authorized_user_filename='path/to/the/authorized_user.json'
         )
@@ -185,7 +185,7 @@ manager.
 
 ::
 
-    import gspread
+    import pygapi
 
     credentials = {
         "installed": {
@@ -196,7 +196,7 @@ manager.
             ...
         }
     }
-    gc, authorized_user = gspread.oauth_from_dict(credentials)
+    gc, authorized_user = pygapi.oauth_from_dict(credentials)
 
     sh = gc.open("Example spreadsheet")
 
@@ -211,7 +211,7 @@ as second argument in your next `oauth` request to be directly authenticated and
 
 ::
 
-    import gspread
+    import pygapi
 
     credentials = {
         "installed": {
@@ -233,7 +233,7 @@ as second argument in your next `oauth` request to be directly authenticated and
         ],
         "expiry": "1070-01-01T00:00:00.000001Z"
     }
-    gc, authorized_user = gspread.oauth_from_dict(credentials, authorized_user)
+    gc, authorized_user = pygapi.oauth_from_dict(credentials, authorized_user)
 
     sh = gc.open("Example spreadsheet")
 

@@ -1,5 +1,5 @@
 """
-gspread.utils
+pygapi.utils
 ~~~~~~~~~~~~~
 
 This module contains utility functions.
@@ -353,7 +353,7 @@ def _a1_to_rowcol_unbounded(label):
     >>> _a1_to_rowcol_unbounded('1A')
     Traceback (most recent call last):
         ...
-    gspread.exceptions.IncorrectCellLabel: 1A
+    pygapi.exceptions.IncorrectCellLabel: 1A
 
     >>> _a1_to_rowcol_unbounded('')
     (inf, inf)
@@ -447,12 +447,12 @@ def a1_range_to_grid_range(name, sheet_id=None):
 def column_letter_to_index(column):
     """Converts a column letter to its numerical index.
 
-    This is useful when using the method :meth:`gspread.worksheet.Worksheet.col_values`.
+    This is useful when using the method :meth:`pygapi.worksheet.Worksheet.col_values`.
     Which requires a column index.
 
     This function is case-insensitive.
 
-    Raises :exc:`gspread.exceptions.InvalidInputValue` in case of invalid input.
+    Raises :exc:`pygapi.exceptions.InvalidInputValue` in case of invalid input.
 
     Examples::
 
@@ -467,7 +467,7 @@ def column_letter_to_index(column):
 
     >>> column_letter_to_index("!@#$%^&")
     ...
-    gspread.exceptions.InvalidInputValue: invalid value: !@#$%^&, must be a column letter
+    pygapi.exceptions.InvalidInputValue: invalid value: !@#$%^&, must be a column letter
     """
     try:
         (_, index) = _a1_to_rowcol_unbounded(column)

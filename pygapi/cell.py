@@ -1,5 +1,5 @@
 """
-gspread.cell
+pygapi.cell
 ~~~~~~~~~~~~
 
 This module contains common cells' models.
@@ -11,7 +11,7 @@ from .utils import a1_to_rowcol, numericise, rowcol_to_a1
 
 class Cell:
     """An instance of this class represents a single cell
-    in a :class:`~gspread.worksheet.Worksheet`.
+    in a :class:`~pygapi.worksheet.Worksheet`.
     """
 
     def __init__(self, row, col, value=""):
@@ -23,7 +23,7 @@ class Cell:
 
     @classmethod
     def from_address(cls, label, value=""):
-        """Instantiate a new :class:`~gspread.cell.Cell`
+        """Instantiate a new :class:`~pygapi.cell.Cell`
         from an A1 notation address and a value
 
         :param string label: the A1 label of the returned cell

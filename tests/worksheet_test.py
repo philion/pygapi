@@ -4,16 +4,16 @@ import re
 
 import pytest
 
-import gspread
-import gspread.utils as utils
-from gspread.exceptions import APIError, GSpreadException
+import pygapi
+import pygapi.utils as utils
+from pygapi.exceptions import APIError, pygapiException
 
-from .conftest import I18N_STR, GspreadTest
+from .conftest import I18N_STR, pygapiTest
 
 
-class WorksheetTest(GspreadTest):
+class WorksheetTest(pygapiTest):
 
-    """Test for gspread.Worksheet."""
+    """Test for pygapi.Worksheet."""
 
     @pytest.fixture(scope="function", autouse=True)
     def init(self, client, request):
@@ -33,12 +33,12 @@ class WorksheetTest(GspreadTest):
     @pytest.mark.vcr()
     def test_acell(self):
         cell = self.sheet.acell("A1")
-        self.assertTrue(isinstance(cell, gspread.cell.Cell))
+        self.assertTrue(isinstance(cell, pygapi.cell.Cell))
 
     @pytest.mark.vcr()
     def test_cell(self):
         cell = self.sheet.cell(1, 1)
-        self.assertTrue(isinstance(cell, gspread.cell.Cell))
+        self.assertTrue(isinstance(cell, pygapi.cell.Cell))
 
     @pytest.mark.vcr()
     def test_range(self):
@@ -48,8 +48,8 @@ class WorksheetTest(GspreadTest):
         self.assertEqual(len(cell_range1), 5)
 
         for c1, c2 in zip(cell_range1, cell_range2):
-            self.assertTrue(isinstance(c1, gspread.cell.Cell))
-            self.assertTrue(isinstance(c2, gspread.cell.Cell))
+            self.assertTrue(isinstance(c1, pygapi.cell.Cell))
+            self.assertTrue(isinstance(c2, pygapi.cell.Cell))
             self.assertTrue(c1.col == c2.col)
             self.assertTrue(c1.row == c2.row)
             self.assertTrue(c1.value == c2.value)
@@ -331,8 +331,8 @@ class WorksheetTest(GspreadTest):
         test_values = ["cell row 1, col 2", "cell row 2 col 1"]
 
         cell_list = [
-            gspread.cell.Cell(1, 2, test_values[0]),
-            gspread.cell.Cell(2, 1, test_values[1]),
+            pygapi.cell.Cell(1, 2, test_values[0]),
+            pygapi.cell.Cell(2, 1, test_values[1]),
         ]
         self.sheet.update_cells(cell_list)
 
@@ -818,7 +818,7 @@ class WorksheetTest(GspreadTest):
             cell.value = value
         self.sheet.update_cells(cell_list)
 
-        with pytest.raises(GSpreadException):
+        with pytest.raises(pygapiException):
             self.sheet.get_all_records()
 
     @pytest.mark.vcr(allow_playback_repeats=True)
@@ -839,12 +839,12 @@ class WorksheetTest(GspreadTest):
 
         # check non uniques expected headers
         expected_headers = ["A1", "A1"]
-        with pytest.raises(GSpreadException):
+        with pytest.raises(pygapiException):
             self.sheet.get_all_records(expected_headers=expected_headers)
 
         # check extra headers
         expected_headers = ["A1", "E5"]
-        with pytest.raises(GSpreadException):
+        with pytest.raises(pygapiException):
             self.sheet.get_all_records(expected_headers=expected_headers)
 
         # check nominal case.
@@ -961,7 +961,7 @@ class WorksheetTest(GspreadTest):
         self.assertEqual(b3.value, formula)
 
         new_row_values = [next(sg) for i in range(num_cols + 4)]
-        with pytest.raises(GSpreadException):
+        with pytest.raises(pygapiException):
             self.sheet.insert_row(new_row_values, 1, inherit_from_before=True)
 
     @pytest.mark.vcr()
@@ -1383,7 +1383,7 @@ class WorksheetTest(GspreadTest):
         # we can only check the result of `auto_resize_columns`
         # using only code and the API.
         # To test `auto_resize_row` we must use a web browser and
-        # force the size of a row then auto resize it using gspread.
+        # force the size of a row then auto resize it using pygapi.
 
         # insert enough text to make it larger than the column
         w.update_acell("A1", "A" * 1024)

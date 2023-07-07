@@ -1,10 +1,10 @@
 # Python Google API
 
 ![latest workflow](https://github.com/philion/pygapi/actions/workflows/main.yaml/badge.svg?branch=master)
-[![GitHub version](https://badge.fury.io/gh/burnash%2Fgspread.svg)](https://badge.fury.io/gh/burnash%2Fgspread)
-![PyPi]( https://badge.fury.io/py/gspread.svg)
-![downloads](https://img.shields.io/pypi/dm/gspread.svg)
-![doc](https://readthedocs.org/projects/gspread/badge/?version=latest)
+[![GitHub version](https://badge.fury.io/gh/philion%2Fpygapi.svg)](https://badge.fury.io/gh/philion%2Fpygapi)
+![PyPi]( https://badge.fury.io/py/pygapi.svg)
+![downloads](https://img.shields.io/pypi/dm/pygapi.svg)
+![doc](https://readthedocs.org/projects/pygapi/badge/?version=latest)
 
 Simple interface for working with Google Drive, Docs and Sheets.
 
@@ -25,14 +25,14 @@ Requirements: Python 3.6+.
 
 ## Basic Usage
 
-1. [Create credentials in Google API Console](http://gspread.readthedocs.org/en/latest/oauth2.html)
+1. [Create credentials in Google API Console](http://pygapi.readthedocs.org/en/latest/oauth2.html)
 
-2. Start using gspread:
+2. Start using pygapi:
 
 ```python
-import gspread
+import pygapi
 
-gc = gspread.service_account()
+gc = pygapi.service_account()
 
 # Open a sheet from a spreadsheet in one go
 wks = gc.open("Where is the money Lebowski?").sheet1
@@ -178,32 +178,32 @@ worksheet.batch_update([{
 
 ## Documentation
 
-[Documentation]\: [https://gspread.readthedocs.io/][Documentation]
+[Documentation]\: [https://pygapi.readthedocs.io/][Documentation]
 
-[Documentation]: https://gspread.readthedocs.io/en/latest/
+[Documentation]: https://pygapi.readthedocs.io/en/latest/
 
 ### Ask Questions
 
-The best way to get an answer to a question is to ask on [Stack Overflow with a gspread tag](http://stackoverflow.com/questions/tagged/gspread?sort=votes&pageSize=50).
+The best way to get an answer to a question is to ask on [Stack Overflow with a pygapi tag](http://stackoverflow.com/questions/tagged/pygapi?sort=votes&pageSize=50).
 
 ## Contributors
 
-[List of contributors](https://github.com/burnash/gspread/graphs/contributors)
+[List of contributors](https://github.com/philion/pygapi/graphs/contributors)
 
 ## How to Contribute
 
-Please make sure to take a moment and read the [Code of Conduct](https://github.com/burnash/gspread/blob/master/.github/CODE_OF_CONDUCT.md).
+Please make sure to take a moment and read the [Code of Conduct](https://github.com/philion/pygapi/blob/master/.github/CODE_OF_CONDUCT.md).
 
 ### Report Issues
 
-Please report bugs and suggest features via the [GitHub Issues](https://github.com/burnash/gspread/issues).
+Please report bugs and suggest features via the [GitHub Issues](https://github.com/philion/pygapi/issues).
 
 Before opening an issue, search the tracker for possible duplicates. If you find a duplicate, please add a comment saying that you encountered the problem as well.
 
 ### Improve Documentation
 
-[Documentation](https://gspread.readthedocs.io/) is as important as code. If you know how to make it more consistent, readable and clear, please submit a pull request. The documentation files are in [`docs`](https://github.com/burnash/gspread/tree/master/docs) folder, use [reStructuredText](http://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html#rst-index) markup and rendered by [Sphinx](http://www.sphinx-doc.org/).
+[Documentation](https://pygapi.readthedocs.io/) is as important as code. If you know how to make it more consistent, readable and clear, please submit a pull request. The documentation files are in [`docs`](https://github.com/philion/pygapi/tree/master/docs) folder, use [reStructuredText](http://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html#rst-index) markup and rendered by [Sphinx](http://www.sphinx-doc.org/).
 
 ### Contribute code
 
-Please make sure to read the [Contributing Guide](https://github.com/burnash/gspread/blob/master/.github/CONTRIBUTING.md) before making a pull request.
+Please make sure to read the [Contributing Guide](https://github.com/philion/pygapi/blob/master/.github/CONTRIBUTING.md) before making a pull request.

@@ -1,8 +1,8 @@
 Models
 ======
 
-The models represent common spreadsheet entities: :class:`a spreadsheet <gspread.spreadsheet.Spreadsheet>`,
-:class:`a worksheet <gspread.worksheet.Worksheet>` and :class:`a cell <gspread.cell.Cell>`.
+The models represent common spreadsheet entities: :class:`a spreadsheet <pygapi.spreadsheet.Spreadsheet>`,
+:class:`a worksheet <pygapi.worksheet.Worksheet>` and :class:`a cell <pygapi.cell.Cell>`.
 
 .. note::
 

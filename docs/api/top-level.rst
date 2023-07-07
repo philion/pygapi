@@ -1,7 +1,7 @@
 Top level
 =========
 
-.. module:: gspread
+.. module:: pygapi
 
 .. autofunction:: oauth
 .. autofunction:: service_account

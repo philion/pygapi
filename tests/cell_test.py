@@ -1,12 +1,12 @@
 import pytest
 
-import gspread
+import pygapi
 
-from .conftest import GspreadTest
+from .conftest import pygapiTest
 
 
-class CellTest(GspreadTest):
-    """Test for gspread.Cell."""
+class CellTest(pygapiTest):
+    """Test for pygapi.Cell."""
 
     @pytest.fixture(scope="function", autouse=True)
     def init(self, client, request):
@@ -73,9 +73,9 @@ class CellTest(GspreadTest):
         cell = self.sheet.find("Dummy")
         self.assertEqual(cell.address, "B1")
         self.assertEqual(cell.value, "Dummy")
-        cell = gspread.cell.Cell(1, 2, "Foo Bar")
+        cell = pygapi.cell.Cell(1, 2, "Foo Bar")
         self.assertEqual(cell.address, "B1")
-        cell = gspread.cell.Cell.from_address("A1", "Foo Bar")
+        cell = pygapi.cell.Cell.from_address("A1", "Foo Bar")
         self.assertEqual(cell.address, "A1")
         self.assertEqual(cell.value, "Foo Bar")
         self.assertEqual((cell.row, cell.col), (1, 1))

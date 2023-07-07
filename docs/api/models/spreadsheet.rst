@@ -1,5 +1,5 @@
 Spreadsheet
 ===========
 
-.. autoclass:: gspread.spreadsheet.Spreadsheet
+.. autoclass:: pygapi.spreadsheet.Spreadsheet
    :members:

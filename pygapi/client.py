@@ -1,5 +1,5 @@
 """
-gspread.client
+pygapi.client
 ~~~~~~~~~~~~~~
 
 This module contains Client class responsible for communicating with
@@ -39,7 +39,7 @@ class Client:
         while persisting some parameters across requests.
         Defaults to `google.auth.transport.requests.AuthorizedSession <https://google-auth.readthedocs.io/en/latest/reference/google.auth.transport.requests.html#google.auth.transport.requests.AuthorizedSession>`_.
 
-    >>> c = gspread.Client(auth=OAuthCredentialObject)
+    >>> c = pygapi.Client(auth=OAuthCredentialObject)
     """
 
     def __init__(self, auth, session=None):
@@ -155,12 +155,12 @@ class Client:
         :param str title: A title of a spreadsheet.
         :param str folder_id: (optional) If specified can be used to filter
             spreadsheets by parent folder ID.
-        :returns: a :class:`~gspread.models.Spreadsheet` instance.
+        :returns: a :class:`~pygapi.models.Spreadsheet` instance.
 
         If there's more than one spreadsheet with same title the first one
         will be opened.
 
-        :raises gspread.SpreadsheetNotFound: if no spreadsheet with
+        :raises pygapi.SpreadsheetNotFound: if no spreadsheet with
                                              specified `title` is found.
 
         >>> gc.open('My fancy spreadsheet')
@@ -182,7 +182,7 @@ class Client:
         """Opens a spreadsheet specified by `key` (a.k.a Spreadsheet ID).
 
         :param str key: A key of a spreadsheet as it appears in a URL in a browser.
-        :returns: a :class:`~gspread.models.Spreadsheet` instance.
+        :returns: a :class:`~pygapi.models.Spreadsheet` instance.
 
         >>> gc.open_by_key('0BmgG6nO_6dprdS1MN3d3MkdPa142WFRrdnRRUWl1UFE')
         """
@@ -193,9 +193,9 @@ class Client:
 
         :param str url: URL of a spreadsheet as it appears in a browser.
 
-        :returns: a :class:`~gspread.models.Spreadsheet` instance.
+        :returns: a :class:`~pygapi.models.Spreadsheet` instance.
 
-        :raises gspread.SpreadsheetNotFound: if no spreadsheet with
+        :raises pygapi.SpreadsheetNotFound: if no spreadsheet with
                                              specified `url` is found.
 
         >>> gc.open_by_url('https://docs.google.com/spreadsheet/ccc?key=0Bm...FE&hl')
@@ -208,7 +208,7 @@ class Client:
         :param str title: (optional) If specified can be used to filter
             spreadsheets by title.
 
-        :returns: a list of :class:`~gspread.models.Spreadsheet` instances.
+        :returns: a list of :class:`~pygapi.models.Spreadsheet` instances.
         """
         spreadsheet_files = self.list_spreadsheet_files(title)
 
@@ -229,7 +229,7 @@ class Client:
         :param str folder_id: Id of the folder where we want to save
             the spreadsheet.
 
-        :returns: a :class:`~gspread.models.Spreadsheet` instance.
+        :returns: a :class:`~pygapi.models.Spreadsheet` instance.
 
         """
         payload = {
@@ -265,7 +265,7 @@ class Client:
 
             See `ExportFormat`_ in the Drive API.
 
-        :type format: :namedtuple:`~gspread.utils.ExportFormat`
+        :type format: :namedtuple:`~pygapi.utils.ExportFormat`
 
         :returns bytes: The content of the exported file.
 
@@ -304,7 +304,7 @@ class Client:
         :param bool copy_comments: (optional) If True, copy the comments from
             the original spreadsheet to the new spreadsheet.
 
-        :returns: a :class:`~gspread.models.Spreadsheet` instance.
+        :returns: a :class:`~pygapi.models.Spreadsheet` instance.
 
         .. versionadded:: 3.1.0
 
@@ -549,7 +549,7 @@ class Client:
 
 
 class BackoffClient(Client):
-    """BackoffClient is a gspread client with exponential
+    """BackoffClient is a pygapi client with exponential
     backoff retries.
 
     In case a request fails due to some API rate limits,
@@ -588,7 +588,7 @@ class BackoffClient(Client):
         warnings.warn(
             DEPRECATION_WARNING_TEMPLATE.format(
                 v_deprecated="6.0.0",
-                msg_deprecated="this class will be deprecated and moved to gspread.http_client package",
+                msg_deprecated="this class will be deprecated and moved to pygapi.http_client package",
             ),
             DeprecationWarning,
         )

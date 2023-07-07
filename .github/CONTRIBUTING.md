@@ -1,6 +1,6 @@
 # Contributing Guide
 
-- Check the [GitHub Issues](https://github.com/burnash/gspread/issues) for open issues that need attention.
+- Check the [GitHub Issues](https://github.com/philion/pygapi/issues) for open issues that need attention.
 - Follow the [How to submit a contribution](https://opensource.guide/how-to-contribute/#how-to-submit-a-contribution) Guide.
 
 - Make sure unit tests pass. Please read how to run unit tests [below](#run-tests-offline).
@@ -19,7 +19,7 @@
 
 ## CI checks
 
-If the [test](#run-tests-offline) or [lint](#lint) commands fail, the CI will fail, and you won't be able to merge your changes into gspread.
+If the [test](#run-tests-offline) or [lint](#lint) commands fail, the CI will fail, and you won't be able to merge your changes into pygapi.
 
 Use [format](#format) to format your code before submitting a PR. Not doing so may cause [lint](#lint) to fail.
 
@@ -69,13 +69,13 @@ The rendered documentation is placed into `docs/build/html`. `index.html` is an 
 
 ## Run tests (online)
 
-gspread uses [vcrpy](https://github.com/kevin1024/vcrpy) to record and replay HTTP interactions with Sheets API.
+pygapi uses [vcrpy](https://github.com/kevin1024/vcrpy) to record and replay HTTP interactions with Sheets API.
 
 ### `GS_CREDS_FILENAME` environment variable
 
 You must provide service account credentials using the `GS_CREDS_FILENAME` environment variable in order to make HTTP requests to the Sheets API.
 
-[Obtain service account credentials from Google Developers Console](https://docs.gspread.org/en/latest/oauth2.html#for-bots-using-service-account).
+[Obtain service account credentials from Google Developers Console](https://docs.pygapi.org/en/latest/oauth2.html#for-bots-using-service-account).
 
 ### `GS_RECORD_MODE` environment variable
 
@@ -89,7 +89,7 @@ In the following cases, you must record new HTTP requests:
 
 - a new test is added
 - an existing test is updated and does a new HTTP request
-- gspread is updated and does a new HTTP request
+- pygapi is updated and does a new HTTP request
 
 ### Run test, capturing *all* HTTP requests
 
@@ -121,15 +121,15 @@ Afterwards, remember to [run the tests in offline mode](#run-tests-offline) to m
 
 ## Release
 
-Old release notes are [here](https://gist.github.com/burnash/335f977a74b8bfdc7968).
+Old release notes are [here](https://gist.github.com/philion/335f977a74b8bfdc7968).
 
 New release system:
 
-- Update version number in [`gspread/__init__.py`](../gspread/__init__.py).
-- Get changelog from drafting a new [GitHub release](https://github.com/burnash/gspread/releases/new) (do not publish, instead cancel.)
+- Update version number in [`pygapi/__init__.py`](../pygapi/__init__.py).
+- Get changelog from drafting a new [GitHub release](https://github.com/philion/pygapi/releases/new) (do not publish, instead cancel.)
 - Add changelog to [`HISTORY.rst`](../HISTORY.rst).
 - Commit the changes as `Release vX.Y.Z` (do not push yet.)
 - Run `tox -e lint,py,build,doc` to check build/etc.
 - Push the commit. Wait for the CI to pass.
 - Add a tag `vX.Y.Z` to the commit locally. This will trigger a new release on PyPi, and make a release on GitHub.
-- View the release on [GitHub](https://github.com/burnash/gspread/releases) and [PyPi](https://pypi.org/project/gspread/)!
+- View the release on [GitHub](https://github.com/philion/pygapi/releases) and [PyPi](https://pypi.org/project/pygapi/)!

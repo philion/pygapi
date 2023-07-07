@@ -1,5 +1,5 @@
 """
-gspread.worksheet
+pygapi.worksheet
 ~~~~~~~~~~~~~~~~~
 
 This module contains common worksheets' models.
@@ -9,7 +9,7 @@ This module contains common worksheets' models.
 import warnings
 
 from .cell import Cell
-from .exceptions import GSpreadException
+from .exceptions import pygapiException
 from .urls import SPREADSHEET_URL, WORKSHEET_DRIVE_URL
 from .utils import (
     DEPRECATION_WARNING_TEMPLATE,
@@ -42,7 +42,7 @@ class ValueRange(list):
 
     The values are stored in a matrix.
 
-    The property :meth:`gspread.worksheet.ValueRange.major_dimension`
+    The property :meth:`pygapi.worksheet.ValueRange.major_dimension`
     holds the major dimension of the first list level.
 
     The inner lists will contain the actual values.
@@ -216,7 +216,7 @@ class Worksheet:
         return sheet.get(property, default_value)
 
     def acell(self, label, value_render_option=ValueRenderOption.formatted):
-        """Returns an instance of a :class:`gspread.cell.Cell`.
+        """Returns an instance of a :class:`pygapi.cell.Cell`.
 
         :param label: Cell label in A1 notation
                       Letter case is ignored.
@@ -224,7 +224,7 @@ class Worksheet:
         :param value_render_option: (optional) Determines how values should be
                                     rendered in the output. See
                                     `ValueRenderOption`_ in the Sheets API.
-        :type value_render_option: :namedtuple:`~gspread.utils.ValueRenderOption`
+        :type value_render_option: :namedtuple:`~pygapi.utils.ValueRenderOption`
 
         .. _ValueRenderOption: https://developers.google.com/sheets/api/reference/rest/v4/ValueRenderOption
 
@@ -238,7 +238,7 @@ class Worksheet:
         )
 
     def cell(self, row, col, value_render_option=ValueRenderOption.formatted):
-        """Returns an instance of a :class:`gspread.cell.Cell` located at
+        """Returns an instance of a :class:`pygapi.cell.Cell` located at
         `row` and `col` column.
 
         :param row: Row number.
@@ -248,7 +248,7 @@ class Worksheet:
         :param value_render_option: (optional) Determines how values should be
                                     rendered in the output. See
                                     `ValueRenderOption`_ in the Sheets API.
-        :type value_render_option: :namedtuple:`~gspread.utils.ValueRenderOption`
+        :type value_render_option: :namedtuple:`~pygapi.utils.ValueRenderOption`
 
         .. _ValueRenderOption: https://developers.google.com/sheets/api/reference/rest/v4/ValueRenderOption
 
@@ -257,7 +257,7 @@ class Worksheet:
         >>> worksheet.cell(1, 1)
         <Cell R1C1 "I'm cell A1">
 
-        :rtype: :class:`gspread.cell.Cell`
+        :rtype: :class:`pygapi.cell.Cell`
         """
         try:
             data = self.get(
@@ -272,7 +272,7 @@ class Worksheet:
 
     @cast_to_a1_notation
     def range(self, name=""):
-        """Returns a list of :class:`gspread.cell.Cell` objects from a specified range.
+        """Returns a list of :class:`pygapi.cell.Cell` objects from a specified range.
 
         :param name: A string with range value in A1 notation (e.g. 'A1:A5')
                      or the named range to fetch.
@@ -362,7 +362,7 @@ class Worksheet:
         :param str major_dimension: (optional) The major dimension of the
             values. `Dimension.rows` ("ROWS") or `Dimension.cols` ("COLUMNS").
             Defaults to Dimension.rows
-        :type major_dimension: :namedtuple:`~gspread.utils.Dimension`
+        :type major_dimension: :namedtuple:`~pygapi.utils.Dimension`
 
         :param bool combine_merged_cells: (optional) If True, then all cells that
             are part of a merged cell will have the same value as the top-left
@@ -396,7 +396,7 @@ class Worksheet:
                 formatted as currency, then A2 would return "=A1".
 
             .. _ValueRenderOption: https://developers.google.com/sheets/api/reference/rest/v4/ValueRenderOption
-        :type value_render_option: :namedtuple:`~gspread.utils.ValueRenderOption`
+        :type value_render_option: :namedtuple:`~pygapi.utils.ValueRenderOption`
 
 
         :param str date_time_render_option: (optional) How dates, times, and
@@ -419,7 +419,7 @@ class Worksheet:
                 This is ignored if ``value_render_option`` is ``ValueRenderOption.formatted``.
 
             The default ``date_time_render_option`` is ``DateTimeOption.serial_number``.
-        :type date_time_render_option: :namedtuple:`~gspread.utils.DateTimeOption`
+        :type date_time_render_option: :namedtuple:`~pygapi.utils.DateTimeOption`
 
         .. note::
 
@@ -466,12 +466,12 @@ class Worksheet:
     def get_all_values(self, **kwargs):
         """Returns a list of lists containing all cells' values as strings.
 
-        This is an alias to :meth:`~gspread.worksheet.Worksheet.get_values`
+        This is an alias to :meth:`~pygapi.worksheet.Worksheet.get_values`
 
         .. note::
 
             This is a legacy method.
-            Use :meth:`~gspread.worksheet.Worksheet.get_values` instead.
+            Use :meth:`~pygapi.worksheet.Worksheet.get_values` instead.
 
         Examples::
 
@@ -515,7 +515,7 @@ class Worksheet:
         :param value_render_option: (optional) Determines how values should
             be rendered in the output. See `ValueRenderOption`_ in
             the Sheets API.
-        :type value_render_option: :namedtuple:`~gspread.utils.ValueRenderOption`
+        :type value_render_option: :namedtuple:`~pygapi.utils.ValueRenderOption`
 
         :param list expected_headers: (optional) List of expected headers, they must be unique.
 
@@ -547,10 +547,10 @@ class Worksheet:
 
         # make sure they are uniques
         if len(expected) != len(expected_headers):
-            raise GSpreadException("the given 'expected_headers' are not uniques")
+            raise pygapiException("the given 'expected_headers' are not uniques")
 
         if not expected & headers == expected:
-            raise GSpreadException(
+            raise pygapiException(
                 "the given 'expected_headers' contains unknown headers: {}".format(
                     expected - headers
                 )
@@ -611,7 +611,7 @@ class Worksheet:
 
             .. _ValueRenderOption: https://developers.google.com/sheets/api/reference/rest/v4/ValueRenderOption
 
-        :type value_render_option: :namedtuple:`~gspread.utils.ValueRenderOption`
+        :type value_render_option: :namedtuple:`~pygapi.utils.ValueRenderOption`
 
         :param date_time_render_option: (optional) How dates, times, and
             durations should be represented in the output.
@@ -633,7 +633,7 @@ class Worksheet:
                 This is ignored if ``value_render_option`` is ``ValueRenderOption.formatted``.
 
             The default ``date_time_render_option`` is ``DateTimeOption.serial_number``.
-        :type date_time_render_option: :namedtuple:`~gspread.utils.DateTimeOption`
+        :type date_time_render_option: :namedtuple:`~pygapi.utils.DateTimeOption`
         """
         try:
             data = self.get("A{}:{}".format(row, row), **kwargs)
@@ -650,7 +650,7 @@ class Worksheet:
         :param str value_render_option: (optional) Determines how values should
             be rendered in the output. See `ValueRenderOption`_ in
             the Sheets API.
-        :type value_render_option: :namedtuple:`~gspread.utils.ValueRenderOption`
+        :type value_render_option: :namedtuple:`~pygapi.utils.ValueRenderOption`
 
         .. _ValueRenderOption: https://developers.google.com/sheets/api/reference/rest/v4/ValueRenderOption
         """
@@ -709,7 +709,7 @@ class Worksheet:
     def update_cells(self, cell_list, value_input_option=ValueInputOption.raw):
         """Updates many cells at once.
 
-        :param list cell_list: List of :class:`gspread.cell.Cell` objects to update.
+        :param list cell_list: List of :class:`pygapi.cell.Cell` objects to update.
         :param  value_input_option: (optional) How the input data should be
             interpreted. Possible values are:
 
@@ -726,7 +726,7 @@ class Worksheet:
 
             See `ValueInputOption`_ in the Sheets API.
 
-        :type value_input_option: :namedtuple:`~gspread.utils.ValueInputOption`
+        :type value_input_option: :namedtuple:`~pygapi.utils.ValueInputOption`
 
         .. _ValueInputOption: https://developers.google.com/sheets/api/reference/rest/v4/ValueInputOption
 
@@ -795,7 +795,7 @@ class Worksheet:
 
              .. _ValueRenderOption: https://developers.google.com/sheets/api/reference/rest/v4/ValueRenderOption
 
-        :type value_render_option: :namedtuple:`~gspread.utils.ValueRenderOption`
+        :type value_render_option: :namedtuple:`~pygapi.utils.ValueRenderOption`
 
         :param str date_time_render_option: (optional) How dates, times, and
              durations should be represented in the output.
@@ -817,9 +817,9 @@ class Worksheet:
                 This is ignored if ``value_render_option`` is ``ValueRenderOption.formatted``.
 
              The default ``date_time_render_option`` is ``DateTimeOption.serial_number``.
-        :type date_time_render_option: :namedtuple:`~gspread.utils.DateTimeOption`
+        :type date_time_render_option: :namedtuple:`~pygapi.utils.DateTimeOption`
 
-         :rtype: :class:`gspread.worksheet.ValueRange`
+         :rtype: :class:`pygapi.worksheet.ValueRange`
 
          Examples::
 
@@ -888,7 +888,7 @@ class Worksheet:
 
             .. _ValueRenderOption: https://developers.google.com/sheets/api/reference/rest/v4/ValueRenderOption
 
-        :type value_render_option: :namedtuple:`~gspread.utils.ValueRenderOption`
+        :type value_render_option: :namedtuple:`~pygapi.utils.ValueRenderOption`
 
         :param str date_time_render_option: (optional) How dates, times, and
             durations should be represented in the output.
@@ -910,7 +910,7 @@ class Worksheet:
                 This is ignored if ``value_render_option`` is ``ValueRenderOption.formatted``.
 
             The default ``date_time_render_option`` is ``DateTimeOption.serial_number``.
-        :type date_time_render_option: :namedtuple:`~gspread.utils.DateTimeOption`
+        :type date_time_render_option: :namedtuple:`~pygapi.utils.DateTimeOption`
 
         .. versionadded:: 3.3
 
@@ -970,7 +970,7 @@ class Worksheet:
                 applied when entering text into a cell via
                 the Google Sheets UI.
 
-        :type value_input_option: :namedtuple:`~gspread.utils.ValueInputOption`
+        :type value_input_option: :namedtuple:`~pygapi.utils.ValueInputOption`
 
         :param response_value_render_option: (optional) Determines how values should
             be rendered in the output. See `ValueRenderOption`_ in
@@ -995,7 +995,7 @@ class Worksheet:
 
             .. _ValueRenderOption: https://developers.google.com/sheets/api/reference/rest/v4/ValueRenderOption
 
-        :type response_value_render_option: :namedtuple:`~gspread.utils.ValueRenderOption`
+        :type response_value_render_option: :namedtuple:`~pygapi.utils.ValueRenderOption`
 
         :param str response_date_time_render_option: (optional) How dates, times, and
             durations should be represented in the output.
@@ -1017,7 +1017,7 @@ class Worksheet:
                 This is ignored if ``value_render_option`` is ``ValueRenderOption.formatted``.
 
             The default ``date_time_render_option`` is ``DateTimeOption.serial_number``.
-        :type date_time_render_option: :namedtuple:`~gspread.utils.DateTimeOption`
+        :type date_time_render_option: :namedtuple:`~pygapi.utils.DateTimeOption`
 
         Examples::
 
@@ -1116,7 +1116,7 @@ class Worksheet:
               applied when entering text into a cell via
               the Google Sheets UI.
 
-        :type value_input_option: :namedtuple:`~gspread.utils.ValueInputOption`
+        :type value_input_option: :namedtuple:`~pygapi.utils.ValueInputOption`
 
         :param response_value_render_option: (optional) Determines how values should
             be rendered in the output. See `ValueRenderOption`_ in
@@ -1141,7 +1141,7 @@ class Worksheet:
 
             .. _ValueRenderOption: https://developers.google.com/sheets/api/reference/rest/v4/ValueRenderOption
 
-        :type response_value_render_option: :namedtuple:`~gspread.utils.ValueRenderOption`
+        :type response_value_render_option: :namedtuple:`~pygapi.utils.ValueRenderOption`
 
         :param str response_date_time_render_option: (optional) How dates, times, and
             durations should be represented in the output.
@@ -1163,7 +1163,7 @@ class Worksheet:
                 This is ignored if ``value_render_option`` is ``ValueRenderOption.formatted``.
 
             The default ``date_time_render_option`` is ``DateTimeOption.serial_number``.
-        :type date_time_render_option: :namedtuple:`~gspread.utils.DateTimeOption`
+        :type date_time_render_option: :namedtuple:`~pygapi.utils.DateTimeOption`
 
         Examples::
 
@@ -1638,7 +1638,7 @@ class Worksheet:
         :param value_input_option: (optional) Determines how the input data
             should be interpreted. See `ValueInputOption`_ in the Sheets API
             reference.
-        :type value_input_option: :namedtuple:`~gspread.utils.ValueInputOption`
+        :type value_input_option: :namedtuple:`~pygapi.utils.ValueInputOption`
         :param str insert_data_option: (optional) Determines how the input data
             should be inserted. See `InsertDataOption`_ in the Sheets API
             reference.
@@ -1679,7 +1679,7 @@ class Worksheet:
             should be interpreted. Possible values are ``ValueInputOption.raw``
             or ``ValueInputOption.user_entered``.
             See `ValueInputOption`_ in the Sheets API.
-        :type value_input_option: :namedtuple:`~gspread.utils.ValueInputOption`
+        :type value_input_option: :namedtuple:`~pygapi.utils.ValueInputOption`
         :param str insert_data_option: (optional) Determines how the input data
             should be inserted. See `InsertDataOption`_ in the Sheets API
             reference.
@@ -1726,7 +1726,7 @@ class Worksheet:
             should be interpreted. Possible values are ``ValueInputOption.raw``
             or ``ValueInputOption.user_entered``.
             See `ValueInputOption`_ in the Sheets API.
-        :type value_input_option: :namedtuple:`~gspread.utils.ValueInputOption`
+        :type value_input_option: :namedtuple:`~pygapi.utils.ValueInputOption`
         :param bool inherit_from_before: (optional) If True, the new row will
             inherit its properties from the previous row. Defaults to False,
             meaning that the new row acquires the properties of the row
@@ -1765,7 +1765,7 @@ class Worksheet:
             should be interpreted. Possible values are ``ValueInputOption.raw``
             or ``ValueInputOption.user_entered``.
             See `ValueInputOption`_ in the Sheets API.
-        :type value_input_option: :namedtuple:`~gspread.utils.ValueInputOption`
+        :type value_input_option: :namedtuple:`~pygapi.utils.ValueInputOption`
         :param bool inherit_from_before: (optional) If true, new rows will
             inherit their properties from the previous row. Defaults to False,
             meaning that new rows acquire the properties of the row immediately
@@ -1781,12 +1781,12 @@ class Worksheet:
         # can't insert row on sheet with colon ':'
         # in its name, see issue: https://issuetracker.google.com/issues/36761154
         if ":" in self.title:
-            raise GSpreadException(
+            raise pygapiException(
                 "can't insert row in worksheet with colon ':' in its name. See issue: https://issuetracker.google.com/issues/36761154"
             )
 
         if inherit_from_before and row == 1:
-            raise GSpreadException(
+            raise pygapiException(
                 "inherit_from_before cannot be used when inserting row(s) at the top of a spreadsheet"
             )
 
@@ -1837,7 +1837,7 @@ class Worksheet:
             should be interpreted. Possible values are ``ValueInputOption.raw``
             or ``ValueInputOption.user_entered``.
             See `ValueInputOption`_ in the Sheets API.
-        :type value_input_option: :namedtuple:`~gspread.utils.ValueInputOption`
+        :type value_input_option: :namedtuple:`~pygapi.utils.ValueInputOption`
         :param bool inherit_from_before: (optional) If True, new columns will
             inherit their properties from the previous column. Defaults to
             False, meaning that new columns acquire the properties of the
@@ -1851,7 +1851,7 @@ class Worksheet:
         """
 
         if inherit_from_before and col == 1:
-            raise GSpreadException(
+            raise pygapiException(
                 "inherit_from_before cannot be used when inserting column(s) at the left edge of a spreadsheet"
             )
 
@@ -1975,7 +1975,7 @@ class Worksheet:
         """Delete protected range identified by the ID ``id``.
 
         To retrieve the ID of a protected range use the following method
-        to list them all: :func:`~gspread.Spreadsheet.list_protected_ranges`
+        to list them all: :func:`~pygapi.Spreadsheet.list_protected_ranges`
         """
 
         body = {
@@ -1994,7 +1994,7 @@ class Worksheet:
         """Deletes multi rows from the worksheet at the specified index.
 
         :param dimension: A dimension to delete. ``Dimension.rows`` or ``Dimension.cols``.
-        :type dimension: :namedtuple:`~gspread.utils.Dimension`
+        :type dimension: :namedtuple:`~pygapi.utils.Dimension`
         :param int start_index: Index of a first row for deletion.
         :param int end_index: Index of a last row for deletion. When
             ``end_index`` is not specified this method only deletes a single
@@ -2148,7 +2148,7 @@ class Worksheet:
             set to True, case insensitive otherwise. Default is True.
             Does not apply to regular expressions.
         :returns: the first matching cell or None otherwise
-        :rtype: :class:`gspread.cell.Cell`
+        :rtype: :class:`pygapi.cell.Cell`
         """
         try:
             return self._finder(finditem, query, case_sensitive, in_row, in_column)
@@ -2158,7 +2158,7 @@ class Worksheet:
     def findall(self, query, in_row=None, in_column=None, case_sensitive=True):
         """Finds all cells matching the query.
 
-        Returns a list of :class:`gspread.cell.Cell`.
+        Returns a list of :class:`pygapi.cell.Cell`.
 
         :param query: A literal string to match or compiled regular expression.
         :type query: str, :py:class:`re.RegexObject`
@@ -2286,7 +2286,7 @@ class Worksheet:
         :param str new_sheet_name: (optional) The name of the new sheet.
             If empty, a new name is chosen for you.
 
-        :returns: a newly created :class:`gspread.worksheet.Worksheet`.
+        :returns: a newly created :class:`pygapi.worksheet.Worksheet`.
 
         .. versionadded:: 3.1
         """
@@ -2714,7 +2714,7 @@ class Worksheet:
         :param int end: The (exclusive) end of the dimension to hide
         :param str dimension: The dimension to hide, can be one of
             ``ROWS`` or ``COLUMNS``.
-        :type diension: :namedtuple:`~gspread.utils.Dimension`
+        :type diension: :namedtuple:`~pygapi.utils.Dimension`
         """
         body = {
             "requests": [
@@ -2769,7 +2769,7 @@ class Worksheet:
         :param int end: The (inclusive) end of the dimension to unhide
         :param str dimension: The dimension to hide, can be one of
             ``ROWS`` or ``COLUMNS``.
-        :type dimension: :namedtuple:`~gspread.utils.Dimension`
+        :type dimension: :namedtuple:`~pygapi.utils.Dimension`
         """
         body = {
             "requests": [
@@ -2899,10 +2899,10 @@ class Worksheet:
         :param paste_type: the paste type to apply. Many paste type are available from
             the Sheet API, see above note for detailed values for all values and their effects.
             Defaults to ``PasteType.normal``
-        :type paste_type: :namedtuple:`~gspread.utils.PasteType`
+        :type paste_type: :namedtuple:`~pygapi.utils.PasteType`
         :param paste_orientation: The paste orient to apply.
             Possible values are: ``normal`` to keep the same orientation, ``transpose`` where all rows become columns and vice versa.
-        :type paste_orientation: :namedtuple:`~gspread.utils.PasteOrientation`
+        :type paste_orientation: :namedtuple:`~pygapi.utils.PasteOrientation`
         """
         body = {
             "requests": [
@@ -2939,7 +2939,7 @@ class Worksheet:
         :param paste_type: the paste type to apply. Many paste type are available from
             the Sheet API, see above note for detailed values for all values and their effects.
             Defaults to ``PasteType.normal``
-        :type paste_type: :namedtuple:`~gspread.utils.PasteType`
+        :type paste_type: :namedtuple:`~pygapi.utils.PasteType`
         """
 
         # in the cut/paste request, the destination object

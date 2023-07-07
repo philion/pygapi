@@ -1,5 +1,5 @@
 """
-gspread.urls
+pygapi.urls
 ~~~~~~~~~~~~
 
 Google API urls.

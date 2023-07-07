@@ -1,5 +1,5 @@
 Cell
 ====
 
-.. autoclass:: gspread.cell.Cell
+.. autoclass:: pygapi.cell.Cell
    :members:

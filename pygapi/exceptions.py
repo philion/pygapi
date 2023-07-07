@@ -1,8 +1,8 @@
 """
-gspread.exceptions
+pygapi.exceptions
 ~~~~~~~~~~~~~~~~~~
 
-Exceptions used in gspread.
+Exceptions used in pygapi.
 
 """
 
@@ -11,35 +11,35 @@ class UnSupportedExportFormat(Exception):
     """Raised when export format is not supported."""
 
 
-class GSpreadException(Exception):
-    """A base class for gspread's exceptions."""
+class pygapiException(Exception):
+    """A base class for pygapi's exceptions."""
 
 
-class SpreadsheetNotFound(GSpreadException):
+class SpreadsheetNotFound(pygapiException):
     """Trying to open non-existent or inaccessible spreadsheet."""
 
 
-class WorksheetNotFound(GSpreadException):
+class WorksheetNotFound(pygapiException):
     """Trying to open non-existent or inaccessible worksheet."""
 
 
-class CellNotFound(GSpreadException):
+class CellNotFound(pygapiException):
     """Cell lookup exception."""
 
 
-class NoValidUrlKeyFound(GSpreadException):
+class NoValidUrlKeyFound(pygapiException):
     """No valid key found in URL."""
 
 
-class IncorrectCellLabel(GSpreadException):
+class IncorrectCellLabel(pygapiException):
     """The cell label is incorrect."""
 
 
-class InvalidInputValue(GSpreadException):
+class InvalidInputValue(pygapiException):
     """The provided values is incorrect."""
 
 
-class APIError(GSpreadException):
+class APIError(pygapiException):
     def __init__(self, response):
         super().__init__(self._extract_text(response))
         self.response = response

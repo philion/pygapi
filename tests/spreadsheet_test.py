@@ -3,14 +3,14 @@ import time
 
 import pytest
 
-import gspread
+import pygapi
 
-from .conftest import GspreadTest
+from .conftest import pygapiTest
 
 
-class SpreadsheetTest(GspreadTest):
+class SpreadsheetTest(pygapiTest):
 
-    """Test for gspread.Spreadsheet."""
+    """Test for pygapi.Spreadsheet."""
 
     @pytest.fixture(scope="function", autouse=True)
     def init(self, client, request):
@@ -29,23 +29,23 @@ class SpreadsheetTest(GspreadTest):
     @pytest.mark.vcr()
     def test_sheet1(self):
         sheet1 = self.spreadsheet.sheet1
-        self.assertTrue(isinstance(sheet1, gspread.Worksheet))
+        self.assertTrue(isinstance(sheet1, pygapi.Worksheet))
 
     @pytest.mark.vcr()
     def test_get_worksheet(self):
         sheet1 = self.spreadsheet.get_worksheet(0)
-        self.assertTrue(isinstance(sheet1, gspread.Worksheet))
+        self.assertTrue(isinstance(sheet1, pygapi.Worksheet))
 
     @pytest.mark.vcr()
     def test_get_worksheet_by_id(self):
         sheet1 = self.spreadsheet.get_worksheet_by_id(0)
-        self.assertTrue(isinstance(sheet1, gspread.Worksheet))
+        self.assertTrue(isinstance(sheet1, pygapi.Worksheet))
 
     @pytest.mark.vcr()
     def test_worksheet(self):
         sheet_title = "Sheet1"
         sheet = self.spreadsheet.worksheet(sheet_title)
-        self.assertTrue(isinstance(sheet, gspread.Worksheet))
+        self.assertTrue(isinstance(sheet, pygapi.Worksheet))
 
     @pytest.mark.vcr()
     def test_worksheets(self):

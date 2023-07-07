@@ -1,15 +1,15 @@
 Utils
 =====
 
-.. autonamedtuple:: gspread.utils.Dimension
-.. autonamedtuple:: gspread.utils.DateTimeOption
-.. autonamedtuple:: gspread.utils.ExportFormat
-.. autonamedtuple:: gspread.utils.MimeType
-.. autonamedtuple:: gspread.utils.PasteOrientation
-.. autonamedtuple:: gspread.utils.PasteType
-.. autonamedtuple:: gspread.utils.ValueInputOption
-.. autonamedtuple:: gspread.utils.ValueRenderOption
+.. autonamedtuple:: pygapi.utils.Dimension
+.. autonamedtuple:: pygapi.utils.DateTimeOption
+.. autonamedtuple:: pygapi.utils.ExportFormat
+.. autonamedtuple:: pygapi.utils.MimeType
+.. autonamedtuple:: pygapi.utils.PasteOrientation
+.. autonamedtuple:: pygapi.utils.PasteType
+.. autonamedtuple:: pygapi.utils.ValueInputOption
+.. autonamedtuple:: pygapi.utils.ValueRenderOption
 
-.. automodule:: gspread.utils
+.. automodule:: pygapi.utils
    :members:
    :undoc-members:

@@ -1,13 +1,13 @@
 import pytest
 
-import gspread
+import pygapi
 
-from .conftest import GspreadTest
+from .conftest import pygapiTest
 
 
-class ClientTest(GspreadTest):
+class ClientTest(pygapiTest):
 
-    """Test for gspread.client."""
+    """Test for pygapi.client."""
 
     @pytest.fixture(scope="class", autouse=True)
     def init(self, client):
@@ -17,7 +17,7 @@ class ClientTest(GspreadTest):
     @pytest.mark.vcr()
     def test_no_found_exeption(self):
         noexistent_title = "Please don't use this phrase as a name of a sheet."
-        self.assertRaises(gspread.SpreadsheetNotFound, self.gc.open, noexistent_title)
+        self.assertRaises(pygapi.SpreadsheetNotFound, self.gc.open, noexistent_title)
 
     @pytest.mark.vcr()
     def test_openall(self):
@@ -26,21 +26,21 @@ class ClientTest(GspreadTest):
 
         self.assertTrue(len(spreadsheet_list2) < len(spreadsheet_list))
         for s in spreadsheet_list:
-            self.assertTrue(isinstance(s, gspread.Spreadsheet))
+            self.assertTrue(isinstance(s, pygapi.Spreadsheet))
         for s in spreadsheet_list2:
-            self.assertTrue(isinstance(s, gspread.Spreadsheet))
+            self.assertTrue(isinstance(s, pygapi.Spreadsheet))
 
     @pytest.mark.vcr()
     def test_create(self):
         title = "Test Spreadsheet"
         new_spreadsheet = self.gc.create(title)
-        self.assertTrue(isinstance(new_spreadsheet, gspread.Spreadsheet))
+        self.assertTrue(isinstance(new_spreadsheet, pygapi.Spreadsheet))
 
     @pytest.mark.vcr()
     def test_copy(self):
         original_spreadsheet = self.gc.create("Original")
         spreadsheet_copy = self.gc.copy(original_spreadsheet.id)
-        self.assertTrue(isinstance(spreadsheet_copy, gspread.Spreadsheet))
+        self.assertTrue(isinstance(spreadsheet_copy, pygapi.Spreadsheet))
 
         original_metadata = original_spreadsheet.fetch_sheet_metadata()
         copy_metadata = spreadsheet_copy.fetch_sheet_metadata()
@@ -69,7 +69,7 @@ class ClientTest(GspreadTest):
 
     @pytest.mark.vcr()
     def test_access_non_existing_spreadsheet(self):
-        with self.assertRaises(gspread.exceptions.APIError) as error:
+        with self.assertRaises(pygapi.exceptions.APIError) as error:
             self.gc.open_by_key("test")
         self.assertEqual(error.exception.args[0]["code"], 404)
         self.assertEqual(

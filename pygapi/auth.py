@@ -1,5 +1,5 @@
 """
-gspread.auth
+pygapi.auth
 ~~~~~~~~~~~~
 
 Simple authentication with OAuth.
@@ -29,12 +29,12 @@ READONLY_SCOPES = [
 ]
 
 
-def get_config_dir(config_dir_name="gspread", os_is_windows=os.name == "nt"):
+def get_config_dir(config_dir_name="pygapi", os_is_windows=os.name == "nt"):
     r"""Construct a config dir path.
 
     By default:
-        * `%APPDATA%\gspread` on Windows
-        * `~/.config/gspread` everywhere else
+        * `%APPDATA%\pygapi` on Windows
+        * `~/.config/pygapi` everywhere else
 
     """
     if os_is_windows:
@@ -54,16 +54,16 @@ def authorize(credentials, client_factory=Client):
     """Login to Google API using OAuth2 credentials.
     This is a shortcut/helper function which
     instantiates a client using `client_factory`.
-    By default :class:`gspread.Client` is used (but could also use
-    :class:`gspread.BackoffClient` to avoid rate limiting).
+    By default :class:`pygapi.Client` is used (but could also use
+    :class:`pygapi.BackoffClient` to avoid rate limiting).
 
     :returns: An instance of the class produced by `client_factory`.
-    :rtype: :class:`gspread.client.Client`
+    :rtype: :class:`pygapi.client.Client`
     """
     warnings.warn(
         DEPRECATION_WARNING_TEMPLATE.format(
             v_deprecated="6.0.0",
-            msg_deprecated="client_factory will be replaced by gspread.http_client types",
+            msg_deprecated="client_factory will be replaced by pygapi.http_client types",
         ),
         DeprecationWarning,
     )
@@ -78,7 +78,7 @@ def local_server_flow(client_config, scopes, port=0):
     This will start a local web server and open the authorization URL in
     the user's browser.
 
-    Pass this function to ``flow`` parameter of :meth:`~gspread.oauth` to run
+    Pass this function to ``flow`` parameter of :meth:`~pygapi.oauth` to run
     a local server flow.
     """
     flow = InstalledAppFlow.from_client_config(client_config, scopes)
@@ -90,7 +90,7 @@ def console_flow(client_config, scopes):
 
     Creates an OAuth flow and runs `google_auth_oauthlib.flow.InstalledAppFlow.run_console <https://google-auth-oauthlib.readthedocs.io/en/latest/reference/google_auth_oauthlib.flow.html#google_auth_oauthlib.flow.InstalledAppFlow.run_console>`_.
 
-    Pass this function to ``flow`` parameter of :meth:`~gspread.oauth` to run
+    Pass this function to ``flow`` parameter of :meth:`~pygapi.oauth` to run
     a console strategy.
     """
     # The console flow has been disabled by google
@@ -98,11 +98,11 @@ def console_flow(client_config, scopes):
     # now: warn the user about this
     # next: remove this deprecated method
     warnings.warn(
-        "The gspread.auth.console_flow flow won't succeed.\n"
+        "The pygapi.auth.console_flow flow won't succeed.\n"
         "The OAuth out-of-band (OOB) flow is deprecated. "
         "New clients will be unable to use this flow starting on Feb 28, 2022. "
         "This flow will be deprecated for all clients on Oct 3, 2022. "
-        "Migrate to an alternative flow: gspread.auth.local_server_flow"
+        "Migrate to an alternative flow: pygapi.auth.local_server_flow"
         "see: https://developers.googleblog.com/2022/02/making-oauth-flows-safer.html?m=1#disallowed-oob"
     )
     flow = InstalledAppFlow.from_client_config(client_config, scopes)
@@ -134,18 +134,18 @@ def oauth(
     By default this function will use the local server strategy and open
     the authorization URL in the user's browser::
 
-        gc = gspread.oauth()
+        gc = pygapi.oauth()
 
     Another option is to run a console strategy. This way, the user is
     instructed to open the authorization URL in their browser. Once the
     authorization is complete, the user must then copy & paste the
     authorization code into the application::
 
-        gc = gspread.oauth(flow=gspread.auth.console_flow)
+        gc = pygapi.oauth(flow=pygapi.auth.console_flow)
 
 
     ``scopes`` parameter defaults to read/write scope available in
-    ``gspread.auth.DEFAULT_SCOPES``. It's read/write for Sheets
+    ``pygapi.auth.DEFAULT_SCOPES``. It's read/write for Sheets
     and Drive API::
 
         DEFAULT_SCOPES =[
@@ -153,11 +153,11 @@ def oauth(
             'https://www.googleapis.com/auth/drive'
         ]
 
-    You can also use ``gspread.auth.READONLY_SCOPES`` for read only access.
-    Obviously any method of ``gspread`` that updates a spreadsheet
+    You can also use ``pygapi.auth.READONLY_SCOPES`` for read only access.
+    Obviously any method of ``pygapi`` that updates a spreadsheet
     **will not work** in this case::
 
-        gc = gspread.oauth(scopes=gspread.auth.READONLY_SCOPES)
+        gc = pygapi.oauth(scopes=pygapi.auth.READONLY_SCOPES)
 
         sh = gc.open("A spreadsheet")
         sh.sheet1.update('A1', '42')   # <-- this will not work
@@ -165,37 +165,37 @@ def oauth(
     If you're storing your user credentials in a place other than the
     default, you may provide a path to that file like so::
 
-        gc = gspread.oauth(
+        gc = pygapi.oauth(
             credentials_filename='/alternative/path/credentials.json',
             authorized_user_filename='/alternative/path/authorized_user.json',
         )
 
     :param list scopes: The scopes used to obtain authorization.
     :param function flow: OAuth flow to use for authentication.
-        Defaults to :meth:`~gspread.auth.local_server_flow`
+        Defaults to :meth:`~pygapi.auth.local_server_flow`
     :param str credentials_filename: Filepath (including name) pointing to a
         credentials `.json` file.
         Defaults to DEFAULT_CREDENTIALS_FILENAME:
 
-            * `%APPDATA%\gspread\credentials.json` on Windows
-            * `~/.config/gspread/credentials.json` everywhere else
+            * `%APPDATA%\pygapi\credentials.json` on Windows
+            * `~/.config/pygapi/credentials.json` everywhere else
     :param str authorized_user_filename: Filepath (including name) pointing to
         an authorized user `.json` file.
         Defaults to DEFAULT_AUTHORIZED_USER_FILENAME:
 
-            * `%APPDATA%\gspread\authorized_user.json` on Windows
-            * `~/.config/gspread/authorized_user.json` everywhere else
-    :type client_factory: :class:`gspread.ClientFactory`
+            * `%APPDATA%\pygapi\authorized_user.json` on Windows
+            * `~/.config/pygapi/authorized_user.json` everywhere else
+    :type client_factory: :class:`pygapi.ClientFactory`
     :param client_factory: A factory function that returns a client class.
-        Defaults to :class:`gspread.Client` (but could also use
-        :class:`gspread.BackoffClient` to avoid rate limiting)
+        Defaults to :class:`pygapi.Client` (but could also use
+        :class:`pygapi.BackoffClient` to avoid rate limiting)
 
-    :rtype: :class:`gspread.client.Client`
+    :rtype: :class:`pygapi.client.Client`
     """
     warnings.warn(
         DEPRECATION_WARNING_TEMPLATE.format(
             v_deprecated="6.0.0",
-            msg_deprecated="client_factory will be replaced by gspread.http_client types",
+            msg_deprecated="client_factory will be replaced by pygapi.http_client types",
         ),
         DeprecationWarning,
     )
@@ -224,18 +224,18 @@ def oauth_from_dict(
     By default this function will use the local server strategy and open
     the authorization URL in the user's browser::
 
-        gc = gspread.oauth_from_dict()
+        gc = pygapi.oauth_from_dict()
 
     Another option is to run a console strategy. This way, the user is
     instructed to open the authorization URL in their browser. Once the
     authorization is complete, the user must then copy & paste the
     authorization code into the application::
 
-        gc = gspread.oauth_from_dict(flow=gspread.auth.console_flow)
+        gc = pygapi.oauth_from_dict(flow=pygapi.auth.console_flow)
 
 
     ``scopes`` parameter defaults to read/write scope available in
-    ``gspread.auth.DEFAULT_SCOPES``. It's read/write for Sheets
+    ``pygapi.auth.DEFAULT_SCOPES``. It's read/write for Sheets
     and Drive API::
 
         DEFAULT_SCOPES =[
@@ -243,11 +243,11 @@ def oauth_from_dict(
             'https://www.googleapis.com/auth/drive'
         ]
 
-    You can also use ``gspread.auth.READONLY_SCOPES`` for read only access.
-    Obviously any method of ``gspread`` that updates a spreadsheet
+    You can also use ``pygapi.auth.READONLY_SCOPES`` for read only access.
+    Obviously any method of ``pygapi`` that updates a spreadsheet
     **will not work** in this case::
 
-        gc = gspread.oauth_from_dict(scopes=gspread.auth.READONLY_SCOPES)
+        gc = pygapi.oauth_from_dict(scopes=pygapi.auth.READONLY_SCOPES)
 
         sh = gc.open("A spreadsheet")
         sh.sheet1.update('A1', '42')   # <-- this will not work
@@ -262,7 +262,7 @@ def oauth_from_dict(
 
     .. code-block:: python
 
-        gc = gspread.oauth_from_dict(
+        gc = pygapi.oauth_from_dict(
                 credentials=my_creds,
                 authorized_user_info=my_auth_user
         )
@@ -272,18 +272,18 @@ def oauth_from_dict(
         if already authenticated.
     :param list scopes: The scopes used to obtain authorization.
     :param function flow: OAuth flow to use for authentication.
-        Defaults to :meth:`~gspread.auth.local_server_flow`
-    :type client_factory: :class:`gspread.ClientFactory`
+        Defaults to :meth:`~pygapi.auth.local_server_flow`
+    :type client_factory: :class:`pygapi.ClientFactory`
     :param client_factory: A factory function that returns a client class.
-        Defaults to :class:`gspread.Client` (but could also use
-        :class:`gspread.BackoffClient` to avoid rate limiting)
+        Defaults to :class:`pygapi.Client` (but could also use
+        :class:`pygapi.BackoffClient` to avoid rate limiting)
 
-    :rtype: (`gspread.client.Client`, str)
+    :rtype: (`pygapi.client.Client`, str)
     """
     warnings.warn(
         DEPRECATION_WARNING_TEMPLATE.format(
             v_deprecated="6.0.0",
-            msg_deprecated="client_factory will be replaced by gspread.http_client types",
+            msg_deprecated="client_factory will be replaced by pygapi.http_client types",
         ),
         DeprecationWarning,
     )
@@ -311,7 +311,7 @@ def service_account(
     """Authenticate using a service account.
 
     ``scopes`` parameter defaults to read/write scope available in
-    ``gspread.auth.DEFAULT_SCOPES``. It's read/write for Sheets
+    ``pygapi.auth.DEFAULT_SCOPES``. It's read/write for Sheets
     and Drive API::
 
         DEFAULT_SCOPES =[
@@ -319,23 +319,23 @@ def service_account(
             'https://www.googleapis.com/auth/drive'
         ]
 
-    You can also use ``gspread.auth.READONLY_SCOPES`` for read only access.
-    Obviously any method of ``gspread`` that updates a spreadsheet
+    You can also use ``pygapi.auth.READONLY_SCOPES`` for read only access.
+    Obviously any method of ``pygapi`` that updates a spreadsheet
     **will not work** in this case.
 
     :param str filename: The path to the service account json file.
     :param list scopes: The scopes used to obtain authorization.
-    :type client_factory: :class:`gspread.ClientFactory`
+    :type client_factory: :class:`pygapi.ClientFactory`
     :param client_factory: A factory function that returns a client class.
-        Defaults to :class:`gspread.Client` (but could also use
-        :class:`gspread.BackoffClient` to avoid rate limiting)
+        Defaults to :class:`pygapi.Client` (but could also use
+        :class:`pygapi.BackoffClient` to avoid rate limiting)
 
-    :rtype: :class:`gspread.client.Client`
+    :rtype: :class:`pygapi.client.Client`
     """
     warnings.warn(
         DEPRECATION_WARNING_TEMPLATE.format(
             v_deprecated="6.0.0",
-            msg_deprecated="client_factory will be replaced by gspread.http_client types",
+            msg_deprecated="client_factory will be replaced by pygapi.http_client types",
         ),
         DeprecationWarning,
     )
@@ -348,7 +348,7 @@ def service_account_from_dict(info, scopes=DEFAULT_SCOPES, client_factory=Client
     """Authenticate using a service account (json).
 
     ``scopes`` parameter defaults to read/write scope available in
-    ``gspread.auth.DEFAULT_SCOPES``. It's read/write for Sheets
+    ``pygapi.auth.DEFAULT_SCOPES``. It's read/write for Sheets
     and Drive API::
 
         DEFAULT_SCOPES =[
@@ -356,23 +356,23 @@ def service_account_from_dict(info, scopes=DEFAULT_SCOPES, client_factory=Client
             'https://www.googleapis.com/auth/drive'
         ]
 
-    You can also use ``gspread.auth.READONLY_SCOPES`` for read only access.
-    Obviously any method of ``gspread`` that updates a spreadsheet
+    You can also use ``pygapi.auth.READONLY_SCOPES`` for read only access.
+    Obviously any method of ``pygapi`` that updates a spreadsheet
     **will not work** in this case.
 
     :param info (Mapping[str, str]): The service account info in Google format
     :param list scopes: The scopes used to obtain authorization.
-    :type client_factory: :class:`gspread.ClientFactory`
+    :type client_factory: :class:`pygapi.ClientFactory`
     :param client_factory: A factory function that returns a client class.
-        Defaults to :class:`gspread.Client` (but could also use
-        :class:`gspread.BackoffClient` to avoid rate limiting)
+        Defaults to :class:`pygapi.Client` (but could also use
+        :class:`pygapi.BackoffClient` to avoid rate limiting)
 
-    :rtype: :class:`gspread.client.Client`
+    :rtype: :class:`pygapi.client.Client`
     """
     warnings.warn(
         DEPRECATION_WARNING_TEMPLATE.format(
             v_deprecated="6.0.0",
-            msg_deprecated="client_factory will be replaced by gspread.http_client types",
+            msg_deprecated="client_factory will be replaced by pygapi.http_client types",
         ),
         DeprecationWarning,
     )

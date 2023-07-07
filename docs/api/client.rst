@@ -1,8 +1,8 @@
 Client
 ======
 
-.. autoclass:: gspread.Client
+.. autoclass:: pygapi.Client
    :members:
 
-.. autoclass:: gspread.client.BackoffClient
+.. autoclass:: pygapi.client.BackoffClient
    :members:

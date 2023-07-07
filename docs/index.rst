@@ -1,7 +1,7 @@
-gspread
+pygapi
 =======
 
-`gspread`_ is a Python API for Google Sheets.
+`pygapi`_ is a Python API for Google Sheets.
 
 Features:
 
@@ -17,7 +17,7 @@ Installation
 
 .. code:: sh
 
-   pip install gspread
+   pip install pygapi
 
 
 Requirements: Python 3+.
@@ -28,9 +28,9 @@ Quick Example
 
 .. code:: python
 
-   import gspread
+   import pygapi
 
-   gc = gspread.service_account()
+   gc = pygapi.service_account()
 
    # Open a sheet from a spreadsheet in one go
    wks = gc.open("Where is the money Lebowski?").sheet1
@@ -89,7 +89,7 @@ Ask Questions
 ~~~~~~~~~~~~~
 
 The best way to get an answer to a question is to ask on `Stack Overflow
-with a gspread tag`_.
+with a pygapi tag`_.
 
 Report Issues
 ~~~~~~~~~~~~~
@@ -113,9 +113,9 @@ Indices and tables
 * :ref:`modindex`
 * :ref:`search`
 
-.. _gspread: https://github.com/burnash/gspread
+.. _pygapi: https://github.com/philion/pygapi
 .. _Obtain OAuth2 credentials from Google Developers Console: oauth2.html
-.. _Code of Conduct: https://github.com/burnash/gspread/blob/master/.github/CODE_OF_CONDUCT.md
-.. _Stack Overflow with a gspread tag: http://stackoverflow.com/questions/tagged/gspread?sort=votes&pageSize=50
-.. _GitHub Issues: https://github.com/burnash/gspread/issues
-.. _Contributing Guide: https://github.com/burnash/gspread/blob/master/.github/CONTRIBUTING.md
+.. _Code of Conduct: https://github.com/philion/pygapi/blob/master/.github/CODE_OF_CONDUCT.md
+.. _Stack Overflow with a pygapi tag: http://stackoverflow.com/questions/tagged/pygapi?sort=votes&pageSize=50
+.. _GitHub Issues: https://github.com/philion/pygapi/issues
+.. _Contributing Guide: https://github.com/philion/pygapi/blob/master/.github/CONTRIBUTING.md

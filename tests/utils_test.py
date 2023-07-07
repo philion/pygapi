@@ -1,7 +1,7 @@
 import unittest
 
-import gspread
-import gspread.utils as utils
+import pygapi
+import pygapi.utils as utils
 
 
 class UtilsTest(unittest.TestCase):
@@ -35,7 +35,7 @@ class UtilsTest(unittest.TestCase):
 
     def test_no_extract_id_from_url(self):
         self.assertRaises(
-            gspread.NoValidUrlKeyFound, utils.extract_id_from_url, "http://example.org"
+            pygapi.NoValidUrlKeyFound, utils.extract_id_from_url, "http://example.org"
         )
 
     def test_a1_to_rowcol(self):
@@ -194,13 +194,13 @@ class UtilsTest(unittest.TestCase):
         # [1] expected return value
         # [2] expected exception to raise
         inputs = [
-            ("", None, gspread.exceptions.InvalidInputValue),
+            ("", None, pygapi.exceptions.InvalidInputValue),
             ("A", 1, None),
             ("Z", 26, None),
             ("AA", 27, None),
             ("AAA", 703, None),
             ("ABCDEFGHIJKLMNOPQRSTUVWXYZ", 256094574536617744129141650397448476, None),
-            ("!@#$%^&*()", None, gspread.exceptions.InvalidInputValue),
+            ("!@#$%^&*()", None, pygapi.exceptions.InvalidInputValue),
         ]
 
         for label, expected, exception in inputs:

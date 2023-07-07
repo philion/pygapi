@@ -1,5 +1,5 @@
 """
-gspread.spreadsheet
+pygapi.spreadsheet
 ~~~~~~~~~~~~~~
 
 This module contains common spreadsheets' models.
@@ -250,10 +250,10 @@ class Spreadsheet:
         :param index: An index of a worksheet. Indexes start from zero.
         :type index: int
 
-        :returns: an instance of :class:`gspread.worksheet.Worksheet`.
+        :returns: an instance of :class:`pygapi.worksheet.Worksheet`.
 
         :raises:
-            :class:`~gspread.exceptions.WorksheetNotFound`: if can't find the worksheet
+            :class:`~pygapi.exceptions.WorksheetNotFound`: if can't find the worksheet
 
         Example. To get third worksheet of a spreadsheet:
 
@@ -274,9 +274,9 @@ class Spreadsheet:
         :param id: The id of a worksheet. it can be seen in the url as the value of the parameter 'gid'.
         :type id: int
 
-        :returns: an instance of :class:`gspread.worksheet.Worksheet`.
+        :returns: an instance of :class:`pygapi.worksheet.Worksheet`.
         :raises:
-            :class:`~gspread.exceptions.WorksheetNotFound`: if can't find the worksheet
+            :class:`~pygapi.exceptions.WorksheetNotFound`: if can't find the worksheet
 
         Example. To get the worksheet 123456 of a spreadsheet:
 
@@ -295,14 +295,14 @@ class Spreadsheet:
             raise WorksheetNotFound("id {} not found".format(id))
 
     def worksheets(self, exclude_hidden: bool = False):
-        """Returns a list of all :class:`worksheets <gspread.worksheet.Worksheet>`
+        """Returns a list of all :class:`worksheets <pygapi.worksheet.Worksheet>`
         in a spreadsheet.
 
         :param exclude_hidden: (optional) If set to ``True`` will only return
                                  visible worksheets. Default is ``False``.
         :type exclude_hidden: bool
 
-        :returns: a list of :class:`worksheets <gspread.worksheet.Worksheet>`.
+        :returns: a list of :class:`worksheets <pygapi.worksheet.Worksheet>`.
         :rtype: list
         """
         sheet_data = self.fetch_sheet_metadata()
@@ -319,7 +319,7 @@ class Spreadsheet:
                       be returned.
         :type title: str
 
-        :returns: an instance of :class:`gspread.worksheet.Worksheet`.
+        :returns: an instance of :class:`pygapi.worksheet.Worksheet`.
 
         :raises:
             WorksheetNotFound: if can't find the worksheet
@@ -351,7 +351,7 @@ class Spreadsheet:
         :param index: Position of the sheet.
         :type index: int
 
-        :returns: a newly created :class:`worksheets <gspread.worksheet.Worksheet>`.
+        :returns: a newly created :class:`worksheets <pygapi.worksheet.Worksheet>`.
         """
         body = {
             "requests": [
@@ -402,7 +402,7 @@ class Spreadsheet:
         :param str new_sheet_name: (optional) The name of the new sheet.
                                    If empty, a new name is chosen for you.
 
-        :returns: a newly created :class:`gspread.worksheet.Worksheet`
+        :returns: a newly created :class:`pygapi.worksheet.Worksheet`
 
         .. versionadded:: 3.1
         """
@@ -431,7 +431,7 @@ class Spreadsheet:
         """Deletes a worksheet from a spreadsheet.
 
         :param worksheet: The worksheet to be deleted.
-        :type worksheet: :class:`~gspread.worksheet.Worksheet`
+        :type worksheet: :class:`~pygapi.worksheet.Worksheet`
         """
         body = {"requests": [{"deleteSheet": {"sheetId": worksheet.id}}]}
 
@@ -454,7 +454,7 @@ class Spreadsheet:
 
         Note: If you omit some of the Spreadsheet's existing Worksheet objects from
         the provided sequence, those Worksheets will be appended to the end of the sequence
-        in the order that they appear in the list returned by :meth:`gspread.spreadsheet.Spreadsheet.worksheets`.
+        in the order that they appear in the list returned by :meth:`pygapi.spreadsheet.Spreadsheet.worksheets`.
 
         .. versionadded:: 3.4
         """
@@ -544,7 +544,7 @@ class Spreadsheet:
 
             See `ExportFormat`_ in the Drive API.
             Default value is ``ExportFormat.PDF``.
-        :type format: :namedtuple:`~gspread.utils.ExportFormat`
+        :type format: :namedtuple:`~pygapi.utils.ExportFormat`
 
         :returns bytes: The content of the exported file.
 
@@ -596,7 +596,7 @@ class Spreadsheet:
 
         .. note::
 
-           You can list all permissions using :meth:`gspread.spreadsheet.Spreadsheet.list_permissions`.
+           You can list all permissions using :meth:`pygapi.spreadsheet.Spreadsheet.list_permissions`.
 
         .. warning::
 
@@ -643,7 +643,7 @@ class Spreadsheet:
         return self.client.request("patch", url, json=payload, params=params)
 
     def named_range(self, named_range):
-        """return a list of :class:`gspread.cell.Cell` objects from
+        """return a list of :class:`pygapi.cell.Cell` objects from
         the specified named range.
 
         :param named_range: A string with a named range value to fetch.

@@ -1,4 +1,4 @@
-Examples of gspread Usage
+Examples of pygapi Usage
 =========================
 
 If you haven't yet authorized your app, read :doc:`oauth2` first.
@@ -36,7 +36,7 @@ Or, if you feel really lazy to extract that key, paste the entire spreadsheet's 
 Creating a Spreadsheet
 ~~~~~~~~~~~~~~~~~~~~~~
 
-Use :meth:`~gspread.Client.create` to create a new blank spreadsheet:
+Use :meth:`~pygapi.Client.create` to create a new blank spreadsheet:
 
 .. code:: python
 
@@ -58,7 +58,7 @@ with yourself:
 
    sh.share('otto@example.com', perm_type='user', role='writer')
 
-See :meth:`~gspread.models.Spreadsheet.share` documentation for a full list of accepted parameters.
+See :meth:`~pygapi.models.Spreadsheet.share` documentation for a full list of accepted parameters.
 
 
 Selecting a Worksheet
@@ -159,8 +159,8 @@ Get all values from the first column:
     So far we've been fetching a limited amount of data from a sheet. This works great until
     you need to get values from hundreds of cells or iterating over many rows or columns.
 
-    Under the hood, gspread uses `Google Sheets API v4 <https://developers.google.com/sheets/api>`_.
-    Most of the time when you call a gspread method to fetch or update a sheet gspread produces
+    Under the hood, pygapi uses `Google Sheets API v4 <https://developers.google.com/sheets/api>`_.
+    Most of the time when you call a pygapi method to fetch or update a sheet pygapi produces
     one HTTP API call.
 
     HTTP calls have performance costs. So if you find your app fetching values one by one in
@@ -169,15 +169,15 @@ Get all values from the first column:
 
     What's more, Sheets API v4 introduced `Usage Limits <https://developers.google.com/sheets/api/limits>`_
     (as of this writing, 300 requests per 60 seconds per project, and 60 requests per 60 seconds per user). When your
-    application hits that limit, you get an :exc:`~gspread.exceptions.APIError` `429 RESOURCE_EXHAUSTED`.
+    application hits that limit, you get an :exc:`~pygapi.exceptions.APIError` `429 RESOURCE_EXHAUSTED`.
 
     Here are the methods that may help you to reduce API calls:
 
-        * :meth:`~gspread.models.Worksheet.get_all_values` fetches values from all of the cells of the sheet.
-        * :meth:`~gspread.models.Worksheet.get` fetches all values from a range of cells.
-        * :meth:`~gspread.models.Worksheet.batch_get` can fetch values from multiple ranges of cells with one API call.
-        * :meth:`~gspread.models.Worksheet.update` lets you update a range of cells with a list of lists.
-        * :meth:`~gspread.models.Worksheet.batch_update` lets you update multiple ranges of cells with one API call.
+        * :meth:`~pygapi.models.Worksheet.get_all_values` fetches values from all of the cells of the sheet.
+        * :meth:`~pygapi.models.Worksheet.get` fetches all values from a range of cells.
+        * :meth:`~pygapi.models.Worksheet.batch_get` can fetch values from multiple ranges of cells with one API call.
+        * :meth:`~pygapi.models.Worksheet.update` lets you update a range of cells with a list of lists.
+        * :meth:`~pygapi.models.Worksheet.batch_update` lets you update multiple ranges of cells with one API call.
 
 
 Getting All Values From a Worksheet as a List of Lists
@@ -313,16 +313,16 @@ Color the background of **A2:B2** cell range in black, change horizontal alignme
        }
    })
 
-The second argument to :meth:`~gspread.models.Worksheet.format` is a dictionary containing the fields to update. A full specification of format options is available at `CellFormat <https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets/cells#cellformat>`_ in Sheet API Reference.
+The second argument to :meth:`~pygapi.models.Worksheet.format` is a dictionary containing the fields to update. A full specification of format options is available at `CellFormat <https://developers.google.com/sheets/api/reference/rest/v4/spreadsheets/cells#cellformat>`_ in Sheet API Reference.
 
 .. Tip::
-    `gspread-formatting <https://github.com/robin900/gspread-formatting>`_ offers extensive functionality to help you when you go beyond basics.
+    `pygapi-formatting <https://github.com/robin900/pygapi-formatting>`_ offers extensive functionality to help you when you go beyond basics.
 
 
-Using gspread with pandas
+Using pygapi with pandas
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-`pandas <https://pandas.pydata.org/>`_ is a popular library for data analysis. The simplest way to get data from a sheet to a pandas DataFrame is with :meth:`~gspread.models.Worksheet.get_all_records`:
+`pandas <https://pandas.pydata.org/>`_ is a popular library for data analysis. The simplest way to get data from a sheet to a pandas DataFrame is with :meth:`~pygapi.models.Worksheet.get_all_records`:
 
 .. code:: python
 
@@ -330,7 +330,7 @@ Using gspread with pandas
 
    dataframe = pd.DataFrame(worksheet.get_all_records())
 
-Here's a basic example for writing a dataframe to a sheet. With :meth:`~gspread.models.Worksheet.update` we put the header of a dataframe into the first row of a sheet followed by the values of a dataframe:
+Here's a basic example for writing a dataframe to a sheet. With :meth:`~pygapi.models.Worksheet.update` we put the header of a dataframe into the first row of a sheet followed by the values of a dataframe:
 
 .. code:: python
 
@@ -340,10 +340,10 @@ Here's a basic example for writing a dataframe to a sheet. With :meth:`~gspread.
 
 For advanced pandas use cases check out these libraries:
 
- * `gspread-pandas <https://github.com/aiguofer/gspread-pandas>`_
- * `gspread-dataframe <https://github.com/robin900/gspread-dataframe>`_
+ * `pygapi-pandas <https://github.com/aiguofer/pygapi-pandas>`_
+ * `pygapi-dataframe <https://github.com/robin900/pygapi-dataframe>`_
 
-Using gspread with NumPy
+Using pygapi with NumPy
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 `NumPy <https://numpy.org/>`_ is a library for scientific computing in Python. It provides tools for working with high performance multi-dimensional arrays.
