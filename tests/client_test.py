@@ -76,3 +76,8 @@ class ClientTest(pygapiTest):
             error.exception.args[0]["message"], "Requested entity was not found."
         )
         self.assertEqual(error.exception.args[0]["status"], "NOT_FOUND")
+
+    #@pytest.mark.vcr()
+    #def test_list_files(self):
+    #    files = self.gc.list_files("1zfSaL_Whbi8esFZk8tb8EKsdcUhGNDDo") # FIXME remove before 
+    #    print(files)

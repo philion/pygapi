@@ -9,6 +9,11 @@ Google API.
 import warnings
 from http import HTTPStatus
 from typing import Type
+import logging
+
+import google.auth
+from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
 
 from google.auth.transport.requests import AuthorizedSession
 
@@ -546,6 +551,39 @@ class Client:
 
         params = {"supportsAllDrives": True}
         self.request("delete", url, params=params)
+
+
+    def list(self, folder_id):
+        files = []
+        page_token = ""
+        url = DRIVE_FILES_API_V3_URL
+
+        #from https://developers.google.com/drive/api/guides/search-files#python   
+        # https://www.googleapis.com/drive/v3/files?q="folderId"+in+parents&fields=files(md5Checksum,+originalFilename)
+
+        #url = '{}?q="{}"+in+parents'.format(url, folder_id)
+
+        params = {
+            "q": '"{}"+in+parents'.format(folder_id),
+            #"pageSize": 100,
+            #"supportsAllDrives": True,
+            #"includeItemsFromAllDrives": True,
+            #"fields": "kind,nextPageToken,files(id,name,modifiedTime)",
+        }
+
+        payload_str = "&".join("%s=%s" % (k,v) for k,v in params.items())
+
+        logging.debug(payload_str)
+
+        while page_token is not None:
+            if page_token:
+                params["pageToken"] = page_token
+
+            res = self.request("get", url, params=payload_str).json()
+            files.extend(res["files"])
+            page_token = res.get("nextPageToken", None)
+
+        return files
 
 
 class BackoffClient(Client):
